@@ -242,6 +242,20 @@ describe('Site', () => {
                 expect(settingsManagerMock).toHaveBeenCalledWith({ led_enabled: false });
             });
         });
+        describe('getSystemInfo', () => {
+            // abbreviated representation
+            const sysInfo = {
+                version: '1.2.3.4',
+                name: 'UDMPRO2',
+                hostname: 'unifi',
+                https_port: 843
+            };
+            it('should return system information', async () => {
+                mockedAxios.get.mockImplementationOnce(() => Promise.resolve({ data: { data: sysInfo } }));
+                expect(await site.getSystemInfo()).toStrictEqual(sysInfo);
+                expect(mockedAxios.get).toHaveBeenCalledWith('/stat/sysinfo');
+            });
+        });
         describe('getSettings', () => {
             const mgmt = {
                 key: 'mgmt',

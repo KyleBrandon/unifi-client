@@ -16,6 +16,7 @@ import { IUser } from './User';
 import { EProxyNamespaces, IBuildUrlParams, proxyNamespace } from './interfaces';
 import { DeviceFingerPrints, FingerprintsRaw } from './Clients';
 import { IControllerProps } from './IControllerProps';
+import { ISystemInfo } from './SystemInfo/ISystemInfo';
 
 const axiosDebug = createDebugger('axios');
 const axiosDebugVerbose = axiosDebug.extend('verbose');
@@ -153,6 +154,17 @@ export class Controller extends ObjectWithPrivateValues implements IController {
         await this.auth.logout();
         this.auth.autoReLogin = false;
         this._logged = false;
+    }
+
+    async getSystemInfo(): Promise<ISystemInfo> {
+        const systemInfo = (
+            await this.controllerInstance.get('/api/s/:site/stat/sysinfo', {
+                urlParams: { site: 'default' },
+                proxyNamespace: EProxyNamespaces.NETWORK
+            })
+        ).data?.data?.pop();
+
+        return systemInfo;
     }
 
     private addAxiosDebugInterceptors(instance: AxiosInstance): AxiosInstance {

@@ -1,4 +1,8 @@
 import type { BaseDevice, LANDevice, UAPDevice, UBBDevice, UDMDevice, UGWDevice, USWDevice, UXGDevice } from '../Devices';
+import { WANNetwork } from '../Networks/WANNetwork';
+import { CorporateNetwork } from '../Networks/CorporateNetwork';
+import { VPNNetwork } from '../Networks/VPNNetwork';
+import { BaseNetwork } from '../Networks/BaseNetwork';
 
 export type timestampDate = number;
 /**
@@ -54,3 +58,4 @@ export type percentageToOne = number;
 export type percentage = number;
 
 export type tDevice = BaseDevice | LANDevice | UAPDevice | UBBDevice | UDMDevice | UGWDevice | USWDevice | UXGDevice;
+export type tNetwork = BaseNetwork | VPNNetwork | WANNetwork | CorporateNetwork;

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": ["es2018", "dom", "esnext"],
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2018",
     "sourceMap": false,
     "allowJs": true,
     "esModuleInterop": true,

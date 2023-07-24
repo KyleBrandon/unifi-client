@@ -18,6 +18,7 @@ import type { BaseDevice } from '../Devices';
 import { macAddress } from '../commons/types';
 import { ISiteSettingsManagement, tSiteSettings } from './ISiteSettings';
 import { Networks } from '../Networks';
+import { ISystemInfo } from '../SystemInfo/ISystemInfo';
 
 export class Site extends _ObjectSubController implements ISite {
     static debug = createDebugger('site');
@@ -104,6 +105,12 @@ export class Site extends _ObjectSubController implements ISite {
             proxyNamespace: EProxyNamespaces.NETWORK,
             apiPart: 'api'
         });
+    }
+
+    public async getSystemInfo(): Promise<ISystemInfo> {
+        const res = ((await this.instance.get<IUnifiResponseEnveloppe<Array<ISystemInfo>>>('/stat/sysinfo')).data.data || []).pop();
+
+        return res!;
     }
 
     // TODO test return
